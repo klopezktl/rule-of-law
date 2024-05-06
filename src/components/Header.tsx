@@ -113,7 +113,7 @@ export default function Header() {
               <NavigationMenuItem key={route.id} className="">
                 <Link href={route.path} legacyBehavior passHref>
                   <NavigationMenuLink
-                    className={clsx(navigationMenuTriggerStyle(), "")}
+                    className={clsx(navigationMenuTriggerStyle(), "uppercase")}
                   >
                     {route.name}
                   </NavigationMenuLink>
@@ -125,7 +125,7 @@ export default function Header() {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 uppercase"
                     >
                       {route.name} <ChevronDown />
                     </Button>
