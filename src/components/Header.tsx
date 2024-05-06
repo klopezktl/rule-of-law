@@ -72,6 +72,21 @@ const routes = [
         name: "Rule of Law Impact Tracker",
         path: "/tools",
       },
+      {
+        id: "resource",
+        name: "RELX SDG Resource Centre",
+        path: "/",
+      },
+      {
+        id: "pip-form",
+        name: "PIP Form for UK Citizens",
+        path: "/",
+      },
+      {
+        id: "voting-laws",
+        name: "US Voting Laws & Legislation Center",
+        path: "/",
+      },
     ],
   },
   {
