@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import clsx from "clsx";
+import ContainerWrapper from "@/components/ContainerWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, "bg-gray-100 w-auto h-screen")}>
+      <body className={clsx(inter.className, " h-screen w-auto")}>
         <Header />
-        {children}
+        <ContainerWrapper>{children}</ContainerWrapper>
       </body>
     </html>
   );

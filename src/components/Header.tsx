@@ -114,7 +114,7 @@ const routes: RouteI[] = [
 
 export default function Header() {
   return (
-    <header className="flex h-16 items-center justify-between border-b-2 bg-white px-4 text-sm sm:px-6">
+    <header className="fixed top-0 mb-4 flex h-16 w-screen items-center justify-between border-b-2 bg-white px-4 text-sm sm:px-6">
       <Logo />
       <NavigationMenu>
         <NavigationMenuList>
