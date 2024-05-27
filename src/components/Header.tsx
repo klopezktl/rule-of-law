@@ -26,7 +26,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const routes = [
+interface RouteI {
+  id: string;
+  name: string;
+  path: string;
+  items: RouteDropdownT[];
+}
+
+type RouteDropdownT = Omit<RouteI, "items">;
+
+const routes: RouteI[] = [
   {
     id: "about-us",
     name: "About Us",
@@ -102,49 +111,63 @@ const routes = [
     items: [],
   },
 ];
+
 export default function Header() {
   return (
-    <header className="flex justify-between items-center bg-white border-b h-16 px-4 sm:px-6 text-sm">
+    <header className="flex h-16 items-center justify-between border-b-2 bg-white px-4 text-sm sm:px-6">
       <Logo />
-      <NavigationMenu className="">
-        <NavigationMenuList className="">
-          {routes.map((route) =>
-            route.items.length === 0 ? (
-              <NavigationMenuItem key={route.id} className="">
+      <NavigationMenu>
+        <NavigationMenuList>
+          {routes.map((route) => (
+            <NavigationMenuItem key={route.id}>
+              {route.items.length === 0 ? (
                 <Link href={route.path} legacyBehavior passHref>
                   <NavigationMenuLink
-                    className={clsx(navigationMenuTriggerStyle(), "uppercase")}
+                    className={clsx(
+                      navigationMenuTriggerStyle(),
+                      {
+                        "bg-red-600 text-white hover:bg-red-700 hover:text-white":
+                          route.id === "donate-now",
+                      },
+                      "uppercase",
+                    )}
                   >
                     {route.name}
                   </NavigationMenuLink>
                 </Link>
-              </NavigationMenuItem>
-            ) : (
-              <NavigationMenuItem key={route.id} className="">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 uppercase"
-                    >
-                      {route.name} <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="p-2">
-                    {route.items.map((routeItem) => (
-                      <DropdownMenuItem key={routeItem.id}>
-                        {routeItem.name}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </NavigationMenuItem>
-            )
-          )}
+              ) : (
+                <Dropdown route={route} />
+              )}
+            </NavigationMenuItem>
+          ))}
         </NavigationMenuList>
-
-        <NavigationMenuViewport className="random" />
       </NavigationMenu>
     </header>
+  );
+}
+
+interface DropdownProps {
+  route: RouteI;
+}
+
+function Dropdown({ route }: DropdownProps) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          className="border-0 uppercase focus-visible:ring-0 focus-visible:ring-offset-0"
+        >
+          {route.name} <ChevronDown />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-2">
+        {route.items.map((routeItem) => (
+          <DropdownMenuItem key={routeItem.id}>
+            {routeItem.name}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
